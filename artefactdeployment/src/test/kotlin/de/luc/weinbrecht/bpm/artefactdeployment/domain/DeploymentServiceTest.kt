@@ -1,6 +1,5 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.domain
 
-import de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.camundaapi.DeploymentException
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.DeploymentCommand
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.ReadDeploymentFilesCommand
 import io.mockk.*

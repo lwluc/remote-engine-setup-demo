@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>artefactdeployment</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>artefactdeployment</name>
 	<description>Demo project to showcase a deployment annotation</description>
 	
@@ -71,6 +71,11 @@
 			<version>1.13.8</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.tngtech.archunit</groupId>
+			<artifactId>archunit-junit5</artifactId>
+			<version>1.1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -95,6 +100,28 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<attach>true</attach>
+							<forceCreation>true</forceCreation>
+							<build>
+								<sourceDirectory>src/main/kotlin</sourceDirectory>
+								<testSourceDirectory>src/test/kotlin</testSourceDirectory>
+							</build>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

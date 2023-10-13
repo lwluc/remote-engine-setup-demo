@@ -1,7 +1,6 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.domain
 
 import de.luc.weinbrecht.bpm.artefactdeployment.Logging
-import de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.camundaapi.DeploymentException
 import de.luc.weinbrecht.bpm.artefactdeployment.log
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.`in`.ProcessArtefactDeployment
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.DeploymentCommand

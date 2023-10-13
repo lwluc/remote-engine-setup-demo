@@ -17,13 +17,14 @@
 	<properties>
 		<java.version>17</java.version>
 		<kotlin.version>1.9.20-RC</kotlin.version>
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
 	
 	<dependencies>
 		<dependency>
 			<groupId>de.luc.weinbrecht.bpm</groupId>
 			<artifactId>artefactdeployment</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 
 		<dependency>

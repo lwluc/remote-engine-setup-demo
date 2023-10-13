@@ -1,5 +1,6 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.camundaapi
 
+import de.luc.weinbrecht.bpm.artefactdeployment.domain.DeploymentException
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe

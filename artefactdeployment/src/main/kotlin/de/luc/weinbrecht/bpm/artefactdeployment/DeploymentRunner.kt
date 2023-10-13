@@ -10,6 +10,7 @@ class DeploymentRunner(
     override fun run(vararg args: String?) {
         log().debug("Executing command line runner to deploy process artefacts")
         processArtefactDeployment.deploy()
+        log().info("Process artefact deployment finished")
     }
 }
 

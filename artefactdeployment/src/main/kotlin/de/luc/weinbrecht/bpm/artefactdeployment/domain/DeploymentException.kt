@@ -1,3 +1,3 @@
-package de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.camundaapi
+package de.luc.weinbrecht.bpm.artefactdeployment.domain
 
 class DeploymentException(message: String, e: Exception?) : RuntimeException(message, e)

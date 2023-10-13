@@ -1,5 +1,6 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.camundaapi
 
+import de.luc.weinbrecht.bpm.artefactdeployment.domain.DeploymentException
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.DeploymentCommand
 import org.springframework.core.io.FileSystemResource
 import org.springframework.http.client.MultipartBodyBuilder
