@@ -1,37 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0">
   <bpmn:process id="remote-engine-process" isExecutable="true" camunda:historyTimeToLive="180">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
       <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="say-hello" />
-    <bpmn:endEvent id="EndEvent_0x6ir2l">
-      <bpmn:incoming>SequenceFlow_16gzt2m</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_16gzt2m" sourceRef="say-hello" targetRef="EndEvent_0x6ir2l" />
-    <bpmn:userTask id="say-hello" name="Say hello to&#10;admin" camunda:candidateUsers="admin">
-      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_16gzt2m</bpmn:outgoing>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="log_info_1" />
+    <bpmn:userTask id="say_hello" name="Say hello to&#10;admin" camunda:candidateUsers="admin">
+      <bpmn:incoming>Flow_1l84ps5</bpmn:incoming>
+      <bpmn:outgoing>Flow_152g3y6</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:endEvent id="Event_04snjng" name="End">
+      <bpmn:incoming>Flow_0fdws08</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0fdws08" sourceRef="log_info_2" targetRef="Event_04snjng" />
+    <bpmn:sequenceFlow id="Flow_1l84ps5" sourceRef="log_info_1" targetRef="say_hello" />
+    <bpmn:sequenceFlow id="Flow_152g3y6" sourceRef="say_hello" targetRef="log_info_2" />
+    <bpmn:serviceTask id="log_info_1" name="Log info" camunda:asyncBefore="true" camunda:type="external" camunda:topic="log-info">
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l84ps5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="log_info_2" name="Log info" camunda:asyncBefore="true" camunda:type="external" camunda:topic="log-info">
+      <bpmn:incoming>Flow_152g3y6</bpmn:incoming>
+      <bpmn:outgoing>Flow_0fdws08</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="remote-engine-process">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="185" y="142" width="24" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndEvent_0x6ir2l">
-        <dc:Bounds x="432" y="99" width="36" height="36" />
+      <bpmndi:BPMNShape id="Event_04snjng_di" bpmnElement="Event_04snjng">
+        <dc:Bounds x="752" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="760" y="142" width="20" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="UserTask_08mft2c_di" bpmnElement="say-hello">
+      <bpmndi:BPMNShape id="BPMNShape_1rftgo4" bpmnElement="say_hello">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1btlvkn_di" bpmnElement="log_info_1">
         <dc:Bounds x="270" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0toknbv_di" bpmnElement="log_info_2">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
         <di:waypoint x="215" y="117" />
         <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_16gzt2m_di" bpmnElement="SequenceFlow_16gzt2m">
+      <bpmndi:BPMNEdge id="Flow_0fdws08_di" bpmnElement="Flow_0fdws08">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="752" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l84ps5_di" bpmnElement="Flow_1l84ps5">
         <di:waypoint x="370" y="117" />
-        <di:waypoint x="432" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_152g3y6_di" bpmnElement="Flow_152g3y6">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="590" y="117" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
