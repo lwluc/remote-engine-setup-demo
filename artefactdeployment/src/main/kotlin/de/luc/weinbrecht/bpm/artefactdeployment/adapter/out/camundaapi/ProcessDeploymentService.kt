@@ -16,6 +16,7 @@ class ProcessDeploymentService(
     override fun deploy(file: File) {
         val body = MultipartBodyBuilder().apply {
             part("deployment-name", file.name.substringBefore("."))
+            part("deploy-changed-only", "true")
             part("data", FileSystemResource(file))
         }
 
