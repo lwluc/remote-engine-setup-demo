@@ -29,8 +29,15 @@
         <kotlin.version>1.9.20-RC</kotlin.version>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/lwluc/remote-engine-setup-demo</url>
+        </repository>
+    </distributionManagement>
 
-  <dependencyManagement>
+    <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.springframework.boot</groupId>
