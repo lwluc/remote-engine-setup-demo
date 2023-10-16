@@ -30,7 +30,7 @@ work on a service task.
 
 ### 📤Auto Deployment
 
-The [artefact-deployment](./artefactdeployment) module provides a custom annotation which searches all `.bpmn`, 
+The [artefact-deployment](./artefactdeployment/README.md) module provides a custom annotation which searches all `.bpmn`, 
 `.dmn` and `.form` files in your resources and deployed them to the remote engines via the REST Api.
 
 # 🚀Getting Started
