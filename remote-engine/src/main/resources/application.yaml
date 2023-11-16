@@ -1,5 +1,11 @@
-spring.datasource.url: jdbc:h2:file:./camunda-h2-database
+spring:
+  datasource.url: jdbc:h2:file:./camunda-h2-database
+  liquibase:
+    change-log: classpath:db/camunda-changelog.xml
 
-camunda.bpm.admin-user:
-  id: admin
-  password: pw
+camunda.bpm:
+  database:
+    schema-update: false
+  admin-user:
+    id: admin
+    password: pw
