@@ -1,7 +1,7 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.usecase.out
 
-import java.io.File
+import org.springframework.core.io.Resource
 
 fun interface ReadDeploymentFilesCommand {
-    fun getDeploymentFiles(): List<File>
+    fun getDeploymentFiles(): List<Resource>
 }

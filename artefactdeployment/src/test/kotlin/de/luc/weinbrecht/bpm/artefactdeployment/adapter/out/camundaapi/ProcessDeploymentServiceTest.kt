@@ -12,6 +12,8 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.springframework.core.io.FileSystemResource
+import org.springframework.core.io.Resource
 import org.springframework.web.reactive.function.client.WebClient
 import java.io.File
 
@@ -38,6 +40,8 @@ class ProcessDeploymentServiceTest {
 
     private lateinit var classUnderTest: ProcessDeploymentService
 
+    val fileMock: File = File.createTempFile("Test", ".bpmn")
+
     @BeforeEach
     fun setUpClassUnderTest() {
         val webclient = WebClient.builder()
@@ -48,10 +52,10 @@ class ProcessDeploymentServiceTest {
 
     @Test
     fun should_deploy_via_post() {
-        val fileMock: File = File.createTempFile("Test", ".bpmn")
+        val resource: Resource = FileSystemResource(fileMock)
         mockWebServer.enqueue(MockResponse().setResponseCode(200))
 
-        classUnderTest.deploy(fileMock)
+        classUnderTest.deploy(resource)
 
         val request = mockWebServer.takeRequest()
 
@@ -69,22 +73,22 @@ class ProcessDeploymentServiceTest {
 
     @Test
     fun should_throw_on_404() {
-        val fileMock: File = File.createTempFile("Test", ".bpmn")
+        val resource: Resource = FileSystemResource(fileMock)
         mockWebServer.enqueue(MockResponse().setResponseCode(404))
 
         val exception = shouldThrow<DeploymentException> {
-            classUnderTest.deploy(fileMock)
+            classUnderTest.deploy(resource)
         }
         exception.message shouldStartWith "Could not deploy process artifact "
     }
 
     @Test
     fun should_throw_on_500() {
-        val fileMock: File = File.createTempFile("Test", ".bpmn")
+        val resource: Resource = FileSystemResource(fileMock)
         mockWebServer.enqueue(MockResponse().setResponseCode(500))
 
         val exception = shouldThrow<DeploymentException> {
-            classUnderTest.deploy(fileMock)
+            classUnderTest.deploy(resource)
         }
         exception.message shouldStartWith "Could not deploy process artifact "
     }

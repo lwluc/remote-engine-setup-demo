@@ -15,12 +15,12 @@ class DeploymentService(
         log().debug("Found {} artifacts to deploy", deployments.size)
 
         deployments.forEach {
-            log().trace("Deploying artifact {}", it.name)
+            log().trace("Deploying artifact {}", it.filename)
 
             try {
                 processDeploymentService.deploy(it)
             } catch (e: DeploymentException) {
-                log().error("Could not deploy artifact {}", it.name, e)
+                log().error("Could not deploy artifact {}", it.filename, e)
             }
         }
     }

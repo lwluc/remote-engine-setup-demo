@@ -1,17 +1,19 @@
 package de.luc.weinbrecht.bpm.artefactdeployment.adapter.out.file
 
 import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.ReadDeploymentFilesCommand
-import java.io.File
-import java.nio.file.Files
+import org.springframework.core.io.Resource
 
-class ProcessFileReader: ReadDeploymentFilesCommand {
-    override fun getDeploymentFiles(): List<File> {
-        return File(this.javaClass.classLoader.getResource("")?.path ?: "").walkTopDown()
-            .filter { !Files.isDirectory(it.toPath()) }
+class ProcessFileReader(
+    private val resources: List<Resource>
+): ReadDeploymentFilesCommand {
+
+    override fun getDeploymentFiles(): List<Resource> {
+        return resources
             .filter {
-                it.path.endsWith(".bpmn") ||
-                it.path.endsWith(".dmn") ||
-                it.path.endsWith(".form") }
+                it.filename?.endsWith(".bpmn") ?: false ||
+                it.filename?.endsWith(".dmn") ?: false ||
+                it.filename?.endsWith(".form") ?: false
+            }
             .toList()
     }
 }

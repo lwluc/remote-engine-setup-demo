@@ -9,13 +9,18 @@ import de.luc.weinbrecht.bpm.artefactdeployment.usecase.out.ReadDeploymentFilesC
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.io.Resource
 import org.springframework.web.reactive.function.client.WebClient
 
 @Configuration
 internal open class DeploymentServiceConfiguration {
 
     @Bean
-    open fun readDeploymentFilesCommand(): ReadDeploymentFilesCommand = ProcessFileReader()
+    open fun readDeploymentFilesCommand(
+        @Value("\${process-artifacts.base-path:classpath*:/process/**/*}")
+        resources: Array<Resource>
+    ): ReadDeploymentFilesCommand =
+        ProcessFileReader(resources.toList())
 
     @Bean
     open fun webClient(
