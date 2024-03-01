@@ -1,5 +1,6 @@
 package de.luc.weinbrecht.bpm.worker
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
 import org.springframework.stereotype.Component
@@ -8,26 +9,37 @@ import org.springframework.web.reactive.function.client.WebClientException
 
 
 @Component
-class ExternalServiceHealthIndicator(
+class RemoteEngineHealthIndicator(
     private val webClient: WebClient,
+    @Value("\${camunda.bpm.client.base-url}")
+    private val camundaEngineBaseUrl: String = "http://localhost:8080/engine-rest"
 ): HealthIndicator {
 
     private val healthBuilder = Health.Builder()
+        .withDetail("rest-api", camundaEngineBaseUrl)
 
-    override fun health(): Health =
-        if (isRemoteEngineUp()) healthBuilder.up().build()
+    override fun health(): Health {
+        val remoteEngineVersion = getRemoteEngineVersion()?.version
+        healthBuilder.withDetail("camunda-version", remoteEngineVersion ?: "null")
+
+        return if (remoteEngineVersion != null) healthBuilder.up().build()
         else healthBuilder.down().build()
+    }
 
-    private fun isRemoteEngineUp(): Boolean {
+    private fun getRemoteEngineVersion(): CamundaVersion? {
         try {
-            webClient.get()
+            val version = webClient.get()
                 .uri("/version")
                 .retrieve()
-                .bodyToMono(String::class.java)
+                .bodyToMono(CamundaVersion::class.java)
                 .block()
-            return true
+            return version
         } catch (e: WebClientException) {
-            return false
+            return null
         }
     }
 }
+
+data class CamundaVersion(
+    val version: String
+)
