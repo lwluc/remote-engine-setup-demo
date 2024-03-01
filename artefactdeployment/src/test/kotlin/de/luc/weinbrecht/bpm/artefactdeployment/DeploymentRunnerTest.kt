@@ -25,4 +25,11 @@ class DeploymentRunnerTest {
 
         classUnderTest.run()
     }
+
+    @Test
+    fun should_catch_exception() {
+        every { processArtefactDeploymentMock.deploy() } throws RuntimeException("Test")
+
+        classUnderTest.run()
+    }
 }

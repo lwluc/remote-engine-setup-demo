@@ -2,3 +2,14 @@ server.port: 8070
 
 camunda.bpm.client:
   base-url: http://localhost:8080/engine-rest
+
+spring:
+  management:
+    endpoints:
+      enabled-by-default: false
+      web:
+        exposure:
+          include: health
+    endpoint:
+      health:
+        enabled: true
