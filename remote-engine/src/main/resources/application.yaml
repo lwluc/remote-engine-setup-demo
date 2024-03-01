@@ -9,3 +9,14 @@ camunda.bpm:
   admin-user:
     id: admin
     password: pw
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
